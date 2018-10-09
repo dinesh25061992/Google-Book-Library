@@ -1,0 +1,38 @@
+<aura:component >
+    <aura:attribute name="isOpenNewListModel" type="Boolean" />
+    <aura:attribute name="readingLists" type="Object[]" />
+    <aura:attribute name="selectedValue" type="Id" />
+    <aura:attribute name="newReadList" type="Object"/>
+    <aura:attribute name="simpleList" type="Object"/>
+    <aura:attribute name="listError" type="String"/>
+    
+    <aura:registerEvent name="addBookandList" type="c:addBookandList"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <force:recordData aura:id="newReadListCreator"                      
+                      fields = "Id, Name, User__c"
+                      targetRecord="{!v.newReadList}"
+                      targetFields ="{!v.simpleList}"
+                      targetError="{!v.listError}"
+                      />
+    
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">                    
+            <header class="slds-modal__header">                
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">New Reading List</h2>
+            </header>                    
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <div class="newlist">                    
+                    <div class="slds-p-horizontal--small">
+                        <lightning:input aura:id="readListField" label="Name" value="{!v.simpleList.Name}"/>                           
+                    </div>                    
+                </div>
+            </div>       
+            <footer class="slds-modal__footer">
+                <lightning:button variant="neutral" label="Cancel" title="Cancel" onclick="{! c.closeModel }"/>
+                <lightning:button label="Save" variant="brand" onclick="{!c.handleSave}"/>
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>    
+</aura:component>

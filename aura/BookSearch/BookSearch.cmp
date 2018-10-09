@@ -1,0 +1,20 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >	
+    <aura:attribute name="enableButton" type="Boolean" default= "true" />
+    <aura:attribute name="isModalOpen" type="Boolean" default= "false" />
+    <aura:attribute name="selectedBooks" type="Object[]"/>
+    
+    <lightning:card title="Find Books">
+        <c:BookSearchForm />
+    </lightning:card>
+    
+    <lightning:card title="Matching Books">
+        <aura:set attribute="actions">
+            <lightning:button disabled="{!v.enableButton}" label="Add To Reading List" title="Add To Reading List" onclick="{! c.openModel }" />
+        </aura:set>
+        <c:BookSearchResult aura:id="searchCmp" toggleButton="{!v.enableButton}" selectedBooks="{!v.selectedBooks}" />
+    </lightning:card>
+    
+    <aura:if isTrue="{!v.isModalOpen}">
+        <c:ReadingListModel isOpen = "{!v.isModalOpen}" selectedBooks="{!v.selectedBooks}"/>    
+    </aura:if>
+</aura:component>

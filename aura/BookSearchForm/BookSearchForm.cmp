@@ -1,0 +1,35 @@
+<aura:component controller="googleBookLibrary">
+    <aura:attribute name="books" type="Object[]" />
+    <aura:attribute name="options" type="List" 
+                    default="[
+                             {'label': 'Name', 'value': 'Name'},
+                             {'label': 'Author', 'value': 'Author'},
+                             {'label': 'ISBN', 'value': 'ISBN'}
+                             ]"/>
+    <aura:attribute name="searchRootvalue" type="String" default="Name"/>
+    
+    <aura:registerEvent name="searchBookEvent" type="c:searchBookEvent"/>    
+    
+        
+            <lightning:radioGroup name="radioGroup"
+                                  label="Search Book With"
+                                  options="{!v.options}"
+                                  value="{!v.searchRootvalue}"
+                                  class="radioclass"
+                                  type="radio"/>
+        
+        <div class="formcontainer"> 
+        <lightning:layout class="formLayout" horizontalAlign="center" verticalAlign="center">
+            
+            <lightning:layoutItem padding="around-small">
+                <lightning:input aura:Id="searchinput" label="Search Book">                   
+                </lightning:input>
+            </lightning:layoutItem>
+            
+            <lightning:layoutItem >
+                <lightning:button variant="brand" label="Search" onclick="{!c.onFormSubmit}"  />                
+            </lightning:layoutItem>
+            
+        </lightning:layout>
+    </div>
+</aura:component>
